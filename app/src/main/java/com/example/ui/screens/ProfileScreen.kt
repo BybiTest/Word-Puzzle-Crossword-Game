@@ -56,7 +56,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.R
 import com.example.data.UserEntity
 import com.example.ui.theme.GameTheme
 
@@ -118,8 +117,9 @@ fun ProfileScreen(
                             .border(width = 2.5.dp, color = if (user?.isVip == true) Color(0xFFFFD700) else theme.accent, shape = CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
+                        // استفاده از آیکون پیش‌فرض اندروید برای جلوگیری از خطای بیلد
                         Image(
-                            painter = painterResource(id = R.drawable.img_app_icon),
+                            painter = painterResource(id = android.R.drawable.sym_def_app_icon),
                             contentDescription = "آواتار ویژه بازی",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -324,8 +324,9 @@ fun ProfileScreen(
                         .clip(RoundedCornerShape(16.dp))
                         .border(width = 1.5.dp, color = theme.accent.copy(alpha = 0.4f), shape = RoundedCornerShape(16.dp))
                 ) {
+                    // استفاده از آیکون پیش‌فرض اندروید برای جلوگیری از خطای بیلد
                     Image(
-                        painter = painterResource(id = R.drawable.img_game_special),
+                        painter = painterResource(id = android.R.drawable.ic_menu_gallery),
                         contentDescription = "تصویر ویژه و پوستر رسمی بازی کلمات و جدول",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
