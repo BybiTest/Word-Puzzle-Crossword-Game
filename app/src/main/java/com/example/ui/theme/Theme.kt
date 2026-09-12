@@ -3,46 +3,28 @@ package com.example.ui.theme
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-// ====================================================================
-// تعریف تمام رنگ‌ها و تم‌هایی که در لاگ خطا داده شده‌اند
-// ====================================================================
-
-// 1. رنگ‌های پایه (برای دسترسی مستقیم در تمام فایل‌ها)
-val primary = Color(0xFF6200EE)
-val secondary = Color(0xFF03DAC6)
-val primaryVariant = Color(0xFF3700B3)
-val accent = Color(0xFF03DAC6)
-val textColor = Color(0xFF121212)
-val textSecondary = Color(0xFF757575)
-val cardBackground = Color(0xFFFFFFFF)
-val cardBorder = Color(0xFFE0E0E0)
-val letterWheelCenter = Color(0xFFFF9800)
-
-// 2. کلاس داده برای نگهداری مشخصات هر تم 
-// (نکته: گرادیانت‌ها به صورت Brush تعریف شده‌اند تا خطای Ambiguity رفع شود)
+// 1. تعریف ساختار داده‌ای تم
 data class GameThemeData(
     val id: String,
     val name: String,
-    val primary: Color = primary,
-    val secondary: Color = secondary,
-    val primaryVariant: Color = primaryVariant,
-    val accent: Color = accent,
-    val textColor: Color = textColor,
-    val textSecondary: Color = textSecondary,
-    val cardBackground: Color = cardBackground,
-    val cardBorder: Color = cardBorder,
-    val letterWheelCenter: Color = letterWheelCenter,
+    val primary: Color = Color(0xFF6200EE),
+    val primaryVariant: Color = Color(0xFF3700B3),
+    val accent: Color = Color(0xFF03DAC6),
+    val textColor: Color = Color(0xFF121212),
+    val textSecondary: Color = Color(0xFF757575),
+    val cardBackground: Color = Color(0xFFFFFFFF),
+    val cardBorder: Color = Color(0xFFE0E0E0),
+    val letterWheelCenter: Color = Color(0xFFFF9800),
     val backgroundGradient: Brush = Brush.linearGradient(listOf(Color(0xFFF5F5F5), Color(0xFFE0E0E0))),
     val letterButtonGradient: Brush = Brush.linearGradient(listOf(Color(0xFFE0E0E0), Color(0xFFBDBDBD)))
 )
 
-// 3. شیء اصلی مدیریت تم‌ها
+// 2. تعریف تم‌های موجود
 object GameThemes {
     val turquoise = GameThemeData(
         id = "turquoise",
         name = "فیروزه‌ای",
         primary = Color(0xFF009688),
-        secondary = Color(0xFF00796B),
         primaryVariant = Color(0xFF004D40),
         accent = Color(0xFFFFC107),
         textColor = Color(0xFF121212),
@@ -57,10 +39,10 @@ object GameThemes {
     fun getThemeById(id: String): GameThemeData {
         return when (id) {
             "turquoise" -> turquoise
-            else -> turquoise // تم پیش‌فرض
+            else -> turquoise
         }
     }
 }
 
-// 4. رفع خطای فایل‌هایی که به اشتباه به جای GameThemes، نوشته‌اند GameTheme
-val GameTheme = GameThemes
+// 3. این خط جادویی است: به کامپایلر می‌گوید GameTheme همان GameThemeData است
+typealias GameTheme = GameThemeData
