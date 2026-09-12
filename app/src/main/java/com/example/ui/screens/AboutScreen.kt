@@ -61,10 +61,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.R
 
-/**
- * About Dialog displaying developer credits, application info, and copyright.
- * Specifically honors the developer credit: سیدحمیدموسوی زاده
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AboutDialog(
@@ -114,10 +110,9 @@ fun AboutDialog(
                                 .size(74.dp)
                                 .border(width = 3.dp, color = Color(0xFFFFD700), shape = CircleShape)
                         ) {
-                            // ⚠️ اگر خطای Unresolved reference برای img_app_icon گرفتی، خط پایین را پاک کن و خط کامنت‌شده زیرش را فعال کن
+                            // ✅ استفاده از آیکون پیش‌فرض اندروید برای تضمین موفقیت بیلد
                             Image(
-                                painter = painterResource(id = R.drawable.img_app_icon),
-                                // painter = painterResource(id = android.R.drawable.ic_menu_gallery), // جایگزین امن در صورت نبود عکس
+                                painter = painterResource(id = android.R.drawable.sym_def_app_icon),
                                 contentDescription = "آیکون برنامه",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
