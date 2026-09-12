@@ -32,7 +32,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Vibration
-import androidx.compose.material.icons.filled.VolumeMute
 import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,7 +40,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -60,14 +58,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.data.UserEntity
-// نکته: اگر در فایل تم نام کلاس را GameThemeData گذاشتی، خط زیر را به GameThemeData تغییر بده
-import com.example.ui.theme.GameTheme 
-import com.example.ui.theme.GameThemes
+import com.example.ui.theme.GameTheme
 
 @Composable
 fun ProfileScreen(
     user: UserEntity?,
-    theme: GameTheme, // اگر نام کلاس تم GameThemeData است، اینجا را هم تغییر بده
+    theme: GameTheme,
     onToggleSound: () -> Unit,
     onToggleHaptics: () -> Unit,
     onOpenDevGuide: () -> Unit,
@@ -91,7 +87,6 @@ fun ProfileScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            // رفع خطای ابهام: استفاده صریح از پارامتر brush
             .background(brush = theme.backgroundGradient)
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
@@ -101,7 +96,6 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(22.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground),
-            // رفع خطای ابهام: نام‌گذاری صریح پارامترهای width و color
             border = BorderStroke(width = 1.5.dp, color = theme.cardBorder),
             elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
             modifier = Modifier.fillMaxWidth()
@@ -124,14 +118,14 @@ fun ProfileScreen(
                             .border(width = 2.5.dp, color = if (user?.isVip == true) Color(0xFFFFD700) else theme.accent, shape = CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
-                        // ⚠️ اگر خطای Unresolved reference برای img_app_icon گرفتی، خط پایین را پاک کن و خط کامنت‌شده زیرش را فعال کن
-                        painter = painterResource(id = R.drawable.img_app_icon),
-                        // painter = painterResource(id = android.R.drawable.ic_menu_gallery), // جایگزین امن در صورت نبود عکس
-                        contentDescription = "آواتار ویژه بازی",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(62.dp)
-                            .clip(CircleShape)
+                        Image(
+                            painter = painterResource(id = R.drawable.img_app_icon),
+                            contentDescription = "آواتار ویژه بازی",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(62.dp)
+                                .clip(CircleShape)
+                        )
                     }
 
                     Spacer(modifier = Modifier.width(14.dp))
@@ -212,7 +206,6 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(6.dp))
 
-                // رفع خطا: در نسخه‌های جدید Compose، progress یک Float است نه Lambda
                 LinearProgressIndicator(
                     progress = (currentLevelXp / 100f),
                     modifier = Modifier
@@ -250,7 +243,6 @@ fun ProfileScreen(
                         modifier = Modifier
                             .size(44.dp)
                             .clip(CircleShape)
-                            // رفع خطای ابهام: استفاده صریح از brush
                             .background(brush = theme.letterButtonGradient),
                         contentAlignment = Alignment.Center
                     ) {
@@ -270,7 +262,7 @@ fun ProfileScreen(
                             color = theme.textColor
                         )
                         Text(
-                            text = "تم فعال: ${theme.name}", // اگر theme.icon داری، می‌توانی اضافه کنی
+                            text = "تم فعال: ${theme.name}",
                             fontSize = 12.sp,
                             color = theme.textSecondary
                         )
@@ -332,10 +324,8 @@ fun ProfileScreen(
                         .clip(RoundedCornerShape(16.dp))
                         .border(width = 1.5.dp, color = theme.accent.copy(alpha = 0.4f), shape = RoundedCornerShape(16.dp))
                 ) {
-                    // ⚠️ اگر خطای Unresolved reference برای img_game_special گرفتی، خط پایین را پاک کن و خط کامنت‌شده زیرش را فعال کن
                     Image(
                         painter = painterResource(id = R.drawable.img_game_special),
-                        // painter = painterResource(id = android.R.drawable.ic_menu_gallery), // جایگزین امن
                         contentDescription = "تصویر ویژه و پوستر رسمی بازی کلمات و جدول",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
