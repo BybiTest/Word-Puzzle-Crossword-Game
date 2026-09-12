@@ -60,7 +60,8 @@ import com.example.ui.theme.GameThemes
 fun CrosswordGameScreen(
     state: CrosswordGameState,
     user: UserEntity?,
-    theme: GameTheme = GameThemes.TURQUOISE,
+    // اصلاح شد: حروف کوچک turquoise برای هماهنگی با آبجکت GameThemes
+    theme: GameTheme = GameThemes.turquoise,
     onSelectCell: (Int, Int) -> Unit,
     onInputChar: (Char) -> Unit,
     onClearCell: () -> Unit,
@@ -146,11 +147,13 @@ fun CrosswordGameScreen(
                                     modifier = Modifier
                                         .size(46.dp)
                                         .clip(RoundedCornerShape(6.dp))
+                                        // رفع خطای ابهام: استفاده صریح از color
                                         .background(
-                                            if (isSelected) Color(0xFFFFE082)
+                                            color = if (isSelected) Color(0xFFFFE082)
                                             else if (enteredChar != null && enteredChar == activeCell.correctChar) Color(0xFFC8E6C9)
                                             else MaterialTheme.colorScheme.surface
                                         )
+                                        // رفع خطای ابهام: استفاده صریح از width و color
                                         .border(
                                             width = if (isSelected) 2.dp else 1.dp,
                                             color = if (isSelected) Color(0xFFFF8F00) else MaterialTheme.colorScheme.outlineVariant,
@@ -187,7 +190,8 @@ fun CrosswordGameScreen(
                                     modifier = Modifier
                                         .size(46.dp)
                                         .clip(RoundedCornerShape(6.dp))
-                                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+                                        // رفع خطای ابهام: استفاده صریح از color
+                                        .background(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
                                 )
                             }
                         }
