@@ -2,6 +2,7 @@ package com.example.ui.screens
 
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -111,10 +112,12 @@ fun AboutDialog(
                             color = Color.White,
                             modifier = Modifier
                                 .size(74.dp)
-                                .border(3.dp, Color(0xFFFFD700), CircleShape)
+                                .border(width = 3.dp, color = Color(0xFFFFD700), shape = CircleShape)
                         ) {
+                            // ⚠️ اگر خطای Unresolved reference برای img_app_icon گرفتی، خط پایین را پاک کن و خط کامنت‌شده زیرش را فعال کن
                             Image(
                                 painter = painterResource(id = R.drawable.img_app_icon),
+                                // painter = painterResource(id = android.R.drawable.ic_menu_gallery), // جایگزین امن در صورت نبود عکس
                                 contentDescription = "آیکون برنامه",
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier
@@ -145,7 +148,7 @@ fun AboutDialog(
                     Card(
                         shape = RoundedCornerShape(18.dp),
                         colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F7FF)),
-                        border = androidx.compose.foundation.BorderStroke(1.5.dp, Color(0xFF64B5F6)),
+                        border = BorderStroke(width = 1.5.dp, color = Color(0xFF64B5F6)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(
