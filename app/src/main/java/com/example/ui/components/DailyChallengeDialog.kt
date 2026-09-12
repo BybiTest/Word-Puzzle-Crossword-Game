@@ -1,5 +1,6 @@
 package com.example.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -72,7 +73,7 @@ fun DailyChallengeDialog(
             modifier = Modifier
                 .fillMaxWidth(0.92f)
                 .shadow(16.dp, RoundedCornerShape(24.dp))
-                .border(2.dp, Color(0xFFFF9800), RoundedCornerShape(24.dp)),
+                .border(width = 2.dp, color = Color(0xFFFF9800), shape = RoundedCornerShape(24.dp)),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground)
         ) {
@@ -96,7 +97,7 @@ fun DailyChallengeDialog(
                     Surface(
                         shape = RoundedCornerShape(14.dp),
                         color = Color(0xFFFFE0B2),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF9800))
+                        border = BorderStroke(width = 1.dp, color = Color(0xFFFF9800))
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -154,12 +155,12 @@ fun DailyChallengeDialog(
                                 .size(38.dp)
                                 .clip(RoundedCornerShape(8.dp))
                                 .background(
-                                    if (char != null) theme.primaryVariant else theme.letterWheelCenter
+                                    color = if (char != null) theme.primaryVariant else theme.letterWheelCenter
                                 )
                                 .border(
-                                    1.dp,
-                                    if (char != null) Color(0xFFFFB300) else theme.cardBorder,
-                                    RoundedCornerShape(8.dp)
+                                    width = 1.dp,
+                                    color = if (char != null) Color(0xFFFFB300) else theme.cardBorder,
+                                    shape = RoundedCornerShape(8.dp)
                                 ),
                             contentAlignment = Alignment.Center
                         ) {
@@ -188,7 +189,7 @@ fun DailyChallengeDialog(
                                     .size(42.dp)
                                     .clip(CircleShape)
                                     .background(
-                                        Brush.verticalGradient(
+                                        brush = Brush.verticalGradient(
                                             listOf(Color(0xFFFFB74D), Color(0xFFFF9800))
                                         )
                                     )
@@ -234,7 +235,7 @@ fun DailyChallengeDialog(
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF6C00)),
                             shape = RoundedCornerShape(12.dp)
                         ) {
-                            Text("ثبت پاسخ", fontWeight = FontWeight.Bold)
+                            Text("ثبت پاسخ", fontWeight = FontWeight.Bold, color = Color.White)
                         }
 
                         Button(
@@ -242,14 +243,14 @@ fun DailyChallengeDialog(
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Gray),
                             shape = RoundedCornerShape(12.dp)
                         ) {
-                            Text("پاک کردن")
+                            Text("پاک کردن", color = Color.White)
                         }
                     }
                 } else {
                     Surface(
                         shape = RoundedCornerShape(16.dp),
                         color = Color(0xFFE8F5E9),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF4CAF50)),
+                        border = BorderStroke(width = 1.dp, color = Color(0xFF4CAF50)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(
