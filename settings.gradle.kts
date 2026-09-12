@@ -19,9 +19,12 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
+    maven {
+      url = uri("https://repo.tapsell.ir/repository/maven-releases/")
+    }
   }
 }
 
-rootProject.name = "My Application"
+rootProject.name = "WordGameApp"
 
 include(":app")
