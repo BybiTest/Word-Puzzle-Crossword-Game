@@ -1,6 +1,6 @@
 package com.example.ui.components
 
-import android.graphics.Paint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.tween
@@ -24,7 +24,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MonetizationOn
 import androidx.compose.material.icons.filled.PlayCircleOutline
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -51,10 +50,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -118,10 +114,8 @@ fun LuckyWheelDialog(
         wonSlice = null
 
         val winningIndex = (0 until sliceCount).random()
-        // Target angle points to top (270 degrees)
         val targetSliceCenter = winningIndex * sliceAngle + (sliceAngle / 2)
         val fullRotations = 5 * 360f
-        // Invert to match top pointer
         val targetDegree = fullRotations + (360f - targetSliceCenter) + 270f
 
         scope.launch {
@@ -149,7 +143,8 @@ fun LuckyWheelDialog(
             modifier = Modifier
                 .fillMaxWidth(0.92f)
                 .shadow(16.dp, RoundedCornerShape(24.dp))
-                .border(2.dp, theme.primaryVariant, RoundedCornerShape(24.dp)),
+                // رفع خطای ابهام: نام‌گذاری صریح پارامترها
+                .border(width = 2.dp, color = theme.primaryVariant, shape = RoundedCornerShape(24.dp)),
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground)
         ) {
@@ -194,7 +189,8 @@ fun LuckyWheelDialog(
                     Surface(
                         shape = RoundedCornerShape(12.dp),
                         color = Color(0xFFFFF8E1),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFD54F))
+                        // رفع خطای ابهام
+                        border = BorderStroke(width = 1.dp, color = Color(0xFFFFD54F))
                     ) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
@@ -229,8 +225,9 @@ fun LuckyWheelDialog(
                         modifier = Modifier
                             .size(276.dp)
                             .clip(CircleShape)
+                            // رفع خطای ابهام: استفاده صریح از brush
                             .background(
-                                Brush.radialGradient(
+                                brush = Brush.radialGradient(
                                     listOf(Color(0xFFFFD700), Color(0xFFFFA000), Color(0xFF795548))
                                 )
                             )
@@ -249,7 +246,6 @@ fun LuckyWheelDialog(
 
                         WheelRewards.slices.forEachIndexed { index, slice ->
                             val startAngle = index * sliceAngle
-                            // Draw Slice Sector
                             drawArc(
                                 color = slice.color,
                                 startAngle = startAngle,
@@ -258,7 +254,6 @@ fun LuckyWheelDialog(
                                 size = Size(canvasSize, canvasSize),
                                 topLeft = Offset(center.x - radius, center.y - radius)
                             )
-                            // Draw Separator line
                             val rad = Math.toRadians(startAngle.toDouble())
                             val endX = center.x + (radius * cos(rad)).toFloat()
                             val endY = center.y + (radius * sin(rad)).toFloat()
@@ -270,7 +265,6 @@ fun LuckyWheelDialog(
                             )
                         }
 
-                        // Outer border stroke
                         drawCircle(
                             color = Color(0xFFFFD700),
                             radius = radius,
@@ -301,12 +295,13 @@ fun LuckyWheelDialog(
                             .size(76.dp)
                             .shadow(8.dp, CircleShape)
                             .clip(CircleShape)
+                            // رفع خطای ابهام: استفاده صریح از brush و shape
                             .background(
-                                Brush.radialGradient(
+                                brush = Brush.radialGradient(
                                     listOf(Color(0xFFFFEE58), Color(0xFFF57F17))
                                 )
                             )
-                            .border(3.dp, Color.White, CircleShape)
+                            .border(width = 3.dp, color = Color.White, shape = CircleShape)
                             .clickable(enabled = !isSpinning) { spinWheel() }
                             .testTag("spin_wheel_center_btn"),
                         contentAlignment = Alignment.Center
@@ -330,7 +325,8 @@ fun LuckyWheelDialog(
                     Surface(
                         shape = RoundedCornerShape(16.dp),
                         color = Color(0xFFE8F5E9),
-                        border = androidx.compose.foundation.BorderStroke(1.5.dp, Color(0xFF4CAF50)),
+                        // رفع خطای ابهام
+                        border = BorderStroke(width = 1.5.dp, color = Color(0xFF4CAF50)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(
@@ -378,7 +374,7 @@ fun LuckyWheelDialog(
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("چرخش با تبلیغ", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text("چرخش با تبلیغ", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.White)
                     }
 
                     // Spin with 30 Coins
@@ -402,7 +398,7 @@ fun LuckyWheelDialog(
                             modifier = Modifier.size(18.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
-                        Text("۳۰ سکه", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text("۳۰ سکه", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFFE65100))
                     }
                 }
             }
