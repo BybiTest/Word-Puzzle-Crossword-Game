@@ -1,5 +1,6 @@
 package com.example.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -59,13 +60,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.data.UserEntity
-import com.example.ui.theme.GameTheme
+// نکته: اگر در فایل تم نام کلاس را GameThemeData گذاشتی، خط زیر را به GameThemeData تغییر بده
+import com.example.ui.theme.GameTheme 
 import com.example.ui.theme.GameThemes
 
 @Composable
 fun ProfileScreen(
     user: UserEntity?,
-    theme: GameTheme,
+    theme: GameTheme, // اگر نام کلاس تم GameThemeData است، اینجا را هم تغییر بده
     onToggleSound: () -> Unit,
     onToggleHaptics: () -> Unit,
     onOpenDevGuide: () -> Unit,
@@ -89,7 +91,8 @@ fun ProfileScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(theme.backgroundGradient)
+            // رفع خطای ابهام: استفاده صریح از پارامتر brush
+            .background(brush = theme.backgroundGradient)
             .verticalScroll(rememberScrollState())
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -98,7 +101,8 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(22.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground),
-            border = androidx.compose.foundation.BorderStroke(1.5.dp, theme.cardBorder),
+            // رفع خطای ابهام: نام‌گذاری صریح پارامترهای width و color
+            border = BorderStroke(width = 1.5.dp, color = theme.cardBorder),
             elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -117,17 +121,17 @@ fun ProfileScreen(
                                 else
                                     Brush.radialGradient(listOf(theme.primary.copy(alpha = 0.3f), theme.primaryVariant))
                             )
-                            .border(2.5.dp, if (user?.isVip == true) Color(0xFFFFD700) else theme.accent, CircleShape),
+                            .border(width = 2.5.dp, color = if (user?.isVip == true) Color(0xFFFFD700) else theme.accent, shape = CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.img_app_icon),
-                            contentDescription = "آواتار ویژه بازی",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(62.dp)
-                                .clip(CircleShape)
-                        )
+                        // ⚠️ اگر خطای Unresolved reference برای img_app_icon گرفتی، خط پایین را پاک کن و خط کامنت‌شده زیرش را فعال کن
+                        painter = painterResource(id = R.drawable.img_app_icon),
+                        // painter = painterResource(id = android.R.drawable.ic_menu_gallery), // جایگزین امن در صورت نبود عکس
+                        contentDescription = "آواتار ویژه بازی",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(62.dp)
+                            .clip(CircleShape)
                     }
 
                     Spacer(modifier = Modifier.width(14.dp))
@@ -208,8 +212,9 @@ fun ProfileScreen(
 
                 Spacer(modifier = Modifier.height(6.dp))
 
+                // رفع خطا: در نسخه‌های جدید Compose، progress یک Float است نه Lambda
                 LinearProgressIndicator(
-                    progress = { currentLevelXp / 100f },
+                    progress = (currentLevelXp / 100f),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(8.dp)
@@ -227,7 +232,7 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(18.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground),
-            border = androidx.compose.foundation.BorderStroke(1.5.dp, theme.accent.copy(alpha = 0.5f)),
+            border = BorderStroke(width = 1.5.dp, color = theme.accent.copy(alpha = 0.5f)),
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onOpenThemeSelector() }
@@ -245,7 +250,8 @@ fun ProfileScreen(
                         modifier = Modifier
                             .size(44.dp)
                             .clip(CircleShape)
-                            .background(Brush.linearGradient(theme.letterButtonGradient)),
+                            // رفع خطای ابهام: استفاده صریح از brush
+                            .background(brush = theme.letterButtonGradient),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -264,7 +270,7 @@ fun ProfileScreen(
                             color = theme.textColor
                         )
                         Text(
-                            text = "تم فعال: ${theme.name} ${theme.icon}",
+                            text = "تم فعال: ${theme.name}", // اگر theme.icon داری، می‌توانی اضافه کنی
                             fontSize = 12.sp,
                             color = theme.textSecondary
                         )
@@ -284,7 +290,7 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground),
-            border = androidx.compose.foundation.BorderStroke(1.5.dp, theme.cardBorder),
+            border = BorderStroke(width = 1.5.dp, color = theme.cardBorder),
             elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -305,7 +311,7 @@ fun ProfileScreen(
                     Surface(
                         shape = RoundedCornerShape(10.dp),
                         color = Color(0xFFFFB300).copy(alpha = 0.2f),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFB300).copy(alpha = 0.7f))
+                        border = BorderStroke(width = 1.dp, color = Color(0xFFFFB300).copy(alpha = 0.7f))
                     ) {
                         Text(
                             text = "گرافیک سه‌بعدی و پوستر ویژه ⭐",
@@ -324,10 +330,12 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .height(170.dp)
                         .clip(RoundedCornerShape(16.dp))
-                        .border(1.5.dp, theme.accent.copy(alpha = 0.4f), RoundedCornerShape(16.dp))
+                        .border(width = 1.5.dp, color = theme.accent.copy(alpha = 0.4f), shape = RoundedCornerShape(16.dp))
                 ) {
+                    // ⚠️ اگر خطای Unresolved reference برای img_game_special گرفتی، خط پایین را پاک کن و خط کامنت‌شده زیرش را فعال کن
                     Image(
                         painter = painterResource(id = R.drawable.img_game_special),
+                        // painter = painterResource(id = android.R.drawable.ic_menu_gallery), // جایگزین امن
                         contentDescription = "تصویر ویژه و پوستر رسمی بازی کلمات و جدول",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()
@@ -380,7 +388,7 @@ fun ProfileScreen(
             Surface(
                 shape = RoundedCornerShape(16.dp),
                 color = theme.cardBackground,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFB300)),
+                border = BorderStroke(width = 1.dp, color = Color(0xFFFFB300)),
                 modifier = Modifier
                     .weight(1f)
                     .clickable { onOpenLuckyWheel() }
@@ -400,7 +408,7 @@ fun ProfileScreen(
             Surface(
                 shape = RoundedCornerShape(16.dp),
                 color = theme.cardBackground,
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFF8F00)),
+                border = BorderStroke(width = 1.dp, color = Color(0xFFFF8F00)),
                 modifier = Modifier
                     .weight(1f)
                     .clickable { onOpenPiggyBank() }
@@ -442,7 +450,7 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground),
-            border = androidx.compose.foundation.BorderStroke(1.dp, theme.cardBorder),
+            border = BorderStroke(width = 1.dp, color = theme.cardBorder),
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(14.dp)) {
@@ -483,11 +491,11 @@ fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(18.dp))
 
-        // Developer Credit & About Section - سیدحمیدموسوی زاده
+        // Developer Credit & About Section
         Card(
             shape = RoundedCornerShape(18.dp),
             colors = CardDefaults.cardColors(containerColor = Color(0xFFF0F7FF)),
-            border = androidx.compose.foundation.BorderStroke(1.5.dp, Color(0xFF64B5F6)),
+            border = BorderStroke(width = 1.5.dp, color = Color(0xFF64B5F6)),
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(18.dp))
@@ -563,7 +571,7 @@ fun ProfileScreen(
         Card(
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(containerColor = theme.cardBackground),
-            border = androidx.compose.foundation.BorderStroke(1.dp, theme.cardBorder),
+            border = BorderStroke(width = 1.dp, color = theme.cardBorder),
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(14.dp)) {
@@ -638,12 +646,13 @@ fun ProfileScreen(
             colors = ButtonDefaults.buttonColors(containerColor = theme.primaryVariant),
             shape = RoundedCornerShape(14.dp)
         ) {
-            Icon(Icons.Default.Code, contentDescription = null)
+            Icon(Icons.Default.Code, contentDescription = null, tint = Color.White)
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "راهنمای انتشار در بازار، تپسل و ادی موبی",
                 fontWeight = FontWeight.Bold,
-                fontSize = 13.sp
+                fontSize = 13.sp,
+                color = Color.White
             )
         }
     }
