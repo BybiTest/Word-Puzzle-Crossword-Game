@@ -16,12 +16,17 @@ targetSdk = 34
 versionCode = 1
 versionName = "1.0"
 
-testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-buildConfigField("String", "TAPSELL_APP_KEY", "\"YOUR_TAPSELL_APP_KEY\"")
-buildConfigField("String", "TAPSELL_REWARDED_ZONE_ID", "\"YOUR_TAPSELL_REWARDED_ZONE_ID\"")
-buildConfigField("String", "TAPSELL_BANNER_ZONE_ID", "\"YOUR_TAPSELL_BANNER_ZONE_ID\"")
-buildConfigField("String", "BAZAAR_RSA_PUBLIC_KEY", "\"YOUR_BAZAAR_RSA_PUBLIC_KEY\"")
+        val tapsellAppKey = System.getenv("TAPSELL_APP_KEY") ?: (project.findProperty("TAPSELL_APP_KEY") as? String) ?: "YOUR_TAPSELL_APP_KEY"
+        val tapsellRewardedZoneId = System.getenv("TAPSELL_REWARDED_ZONE_ID") ?: (project.findProperty("TAPSELL_REWARDED_ZONE_ID") as? String) ?: "YOUR_TAPSELL_REWARDED_ZONE_ID"
+        val tapsellBannerZoneId = System.getenv("TAPSELL_BANNER_ZONE_ID") ?: (project.findProperty("TAPSELL_BANNER_ZONE_ID") as? String) ?: "YOUR_TAPSELL_BANNER_ZONE_ID"
+        val bazaarRsaPublicKey = System.getenv("BAZAAR_RSA_PUBLIC_KEY") ?: (project.findProperty("BAZAAR_RSA_PUBLIC_KEY") as? String) ?: "YOUR_BAZAAR_RSA_PUBLIC_KEY"
+
+        buildConfigField("String", "TAPSELL_APP_KEY", "\"$tapsellAppKey\"")
+        buildConfigField("String", "TAPSELL_REWARDED_ZONE_ID", "\"$tapsellRewardedZoneId\"")
+        buildConfigField("String", "TAPSELL_BANNER_ZONE_ID", "\"$tapsellBannerZoneId\"")
+        buildConfigField("String", "BAZAAR_RSA_PUBLIC_KEY", "\"$bazaarRsaPublicKey\"")
 buildConfigField("String", "SKU_VIP_MONTHLY", "\"vip_monthly\"")
 buildConfigField("String", "SKU_VIP_QUARTERLY", "\"vip_quarterly\"")
 buildConfigField("String", "SKU_VIP_LIFETIME", "\"vip_lifetime\"")
