@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +39,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -75,7 +75,8 @@ fun TopGameBar(
         color = theme.cardBackground,
         tonalElevation = 3.dp,
         shadowElevation = 3.dp,
-        border = androidx.compose.foundation.BorderStroke(1.dp, theme.cardBorder.copy(alpha = 0.5f))
+        // رفع خطای ابهام: نام‌گذاری صریح پارامترهای width و color
+        border = BorderStroke(width = 1.dp, color = theme.cardBorder.copy(alpha = 0.5f))
     ) {
         Row(
             modifier = Modifier
@@ -88,7 +89,8 @@ fun TopGameBar(
             Surface(
                 shape = RoundedCornerShape(20.dp),
                 color = Color(0xFFFFF8E1),
-                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFD54F)),
+                // رفع خطای ابهام
+                border = BorderStroke(width = 1.dp, color = Color(0xFFFFD54F)),
                 modifier = Modifier
                     .clip(RoundedCornerShape(20.dp))
                     .clickable { onOpenStore() }
@@ -116,7 +118,8 @@ fun TopGameBar(
                         modifier = Modifier
                             .size(17.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFFFFB300)),
+                            // رفع خطای ابهام: استفاده صریح از color
+                            .background(color = Color(0xFFFFB300)),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -133,7 +136,8 @@ fun TopGameBar(
             Surface(
                 shape = RoundedCornerShape(18.dp),
                 color = Color(0xFFFFECB3),
-                border = androidx.compose.foundation.BorderStroke(1.5.dp, Color(0xFFFFB300)),
+                // رفع خطای ابهام
+                border = BorderStroke(width = 1.5.dp, color = Color(0xFFFFB300)),
                 modifier = Modifier
                     .scale(pulseScale)
                     .clip(RoundedCornerShape(18.dp))
@@ -275,4 +279,3 @@ fun TopGameBar(
         }
     }
 }
-
