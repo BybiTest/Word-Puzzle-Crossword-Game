@@ -59,7 +59,6 @@ fun DailyChallengeDialog(
 ) {
     if (!isOpen) return
 
-    // Daily mystery word challenge
     val targetWord = "دانشگاه"
     val hint = "محل آموزش عالی و تحصیل علم و فرهنگ"
     val challengeLetters = listOf('د', 'ا', 'ن', 'ش', 'گ', 'ا', 'ه')
@@ -142,7 +141,7 @@ fun DailyChallengeDialog(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Boxes for Target Word (7 Letters)
+                // Boxes for Target Word
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
@@ -177,7 +176,7 @@ fun DailyChallengeDialog(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 if (!isSuccess) {
-                    // Letter buttons to select
+                    // Letter buttons
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
